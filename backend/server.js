@@ -42,6 +42,14 @@ app.post("/", async (req, res) => {
   }
 });
 
+app.delete("/", async (req, res) => {
+  const password = req.body;
+  const db = client.db(dbName);
+  const collection = db.collection("passwords");
+  const deleteResult = await collection.deleteOne(password);
+  res.json({ message: "Password Deleted Successfully", result: deleteResult });
+});
+
 app.listen(port || 3000, () => {
   console.log(`Server is running on port ${port || 3000}`);
 });
